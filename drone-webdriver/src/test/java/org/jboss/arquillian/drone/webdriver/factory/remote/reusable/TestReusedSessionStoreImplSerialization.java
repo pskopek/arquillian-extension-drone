@@ -25,6 +25,7 @@ import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.SessionId;
+import org.jboss.arquillian.drone.webdriver.factory.BrowserCapabilitiesList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -48,8 +49,8 @@ public class TestReusedSessionStoreImplSerialization {
         fileStore = new ReusedSessionPermanentFileStorage();
         ReusedSessionStoreImpl store = new ReusedSessionStoreImpl();
         URL url = new URL("http://localhost/");
-        InitializationParameter key = new InitializationParameter(url, DesiredCapabilities.firefox());
-        ReusedSession session = new ReusedSession(new SessionId("opaqueKey"), DesiredCapabilities.firefox());
+        InitializationParameter key = new InitializationParameter(url, BrowserCapabilitiesList.Firefox.desiredCapabilities);
+        ReusedSession session = new ReusedSession(new SessionId("opaqueKey"), BrowserCapabilitiesList.Firefox.desiredCapabilities);
 
         try {
             // when

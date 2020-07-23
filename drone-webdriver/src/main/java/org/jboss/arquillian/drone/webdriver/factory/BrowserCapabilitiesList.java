@@ -1,6 +1,9 @@
 package org.jboss.arquillian.drone.webdriver.factory;
 
 import org.jboss.arquillian.drone.webdriver.spi.BrowserCapabilities;
+import org.openqa.selenium.Platform;
+import org.openqa.selenium.remote.BrowserType;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.Map;
@@ -8,7 +11,7 @@ import java.util.Map;
 /**
  * An internal mapping between browser capabilities property, implementation class and DesiredCapabilities. This class
  * also
- * supports implemenationClass property which is now legacy configuration value.
+ * supports implementationClass property which is now legacy configuration value.
  *
  * @author <a href="mailto:kpiwko@redhat.com">Karel Piwko</a>
  * @see DesiredCapabilities
@@ -17,6 +20,11 @@ public class BrowserCapabilitiesList {
 
     public static class Chrome implements BrowserCapabilities {
 
+        /**
+         * DesiredCapabilities for a chrome browser.
+         */
+        public static DesiredCapabilities desiredCapabilities = new DesiredCapabilities(BrowserType.CHROME, "", Platform.ANY);
+
         @Override
         public String getImplementationClassName() {
             return "org.openqa.selenium.chrome.ChromeDriver";
@@ -24,7 +32,7 @@ public class BrowserCapabilitiesList {
 
         @Override
         public Map<String, ?> getRawCapabilities() {
-            return DesiredCapabilities.chrome().asMap();
+            return desiredCapabilities.asMap();
         }
 
         @Override
@@ -40,6 +48,11 @@ public class BrowserCapabilitiesList {
 
     public static class Edge implements BrowserCapabilities {
 
+        /**
+         * DesiredCapabilities for an edge browser.
+         */
+        public static DesiredCapabilities desiredCapabilities = new DesiredCapabilities(BrowserType.EDGE, "", Platform.WINDOWS);
+
         @Override
         public String getImplementationClassName() {
             return "org.openqa.selenium.edge.EdgeDriver";
@@ -47,7 +60,7 @@ public class BrowserCapabilitiesList {
 
         @Override
         public Map<String, ?> getRawCapabilities() {
-            return DesiredCapabilities.edge().asMap();
+            return desiredCapabilities.asMap();
         }
 
         @Override
@@ -63,6 +76,16 @@ public class BrowserCapabilitiesList {
 
     public static class Firefox implements BrowserCapabilities {
 
+        /**
+         * DesiredCapabilities for a firefox browser.
+         */
+        public static DesiredCapabilities desiredCapabilities;
+
+        static {
+            desiredCapabilities = new DesiredCapabilities(BrowserType.FIREFOX, "", Platform.ANY);
+            desiredCapabilities.setCapability("acceptInsecureCerts", true);
+        }
+
         @Override
         public String getImplementationClassName() {
             return "org.openqa.selenium.firefox.FirefoxDriver";
@@ -70,7 +93,7 @@ public class BrowserCapabilitiesList {
 
         @Override
         public Map<String, ?> getRawCapabilities() {
-            return DesiredCapabilities.firefox().asMap();
+            return desiredCapabilities.asMap();
         }
 
         @Override
@@ -86,6 +109,11 @@ public class BrowserCapabilitiesList {
 
     public static class HtmlUnit implements BrowserCapabilities {
 
+        /**
+         * DesiredCapabilities for a htmlunit browser.
+         */
+        public static DesiredCapabilities desiredCapabilities = new DesiredCapabilities(BrowserType.HTMLUNIT, "", Platform.ANY);
+
         @Override
         public String getImplementationClassName() {
             return "org.jboss.arquillian.drone.webdriver.htmlunit.DroneHtmlUnitDriver";
@@ -93,7 +121,7 @@ public class BrowserCapabilitiesList {
 
         @Override
         public Map<String, ?> getRawCapabilities() {
-            return DesiredCapabilities.htmlUnit().asMap();
+            return desiredCapabilities.asMap();
         }
 
         @Override
@@ -109,6 +137,16 @@ public class BrowserCapabilitiesList {
 
     public static class InternetExplorer implements BrowserCapabilities {
 
+        /**
+         * DesiredCapabilities for a internet explorer browser.
+         */
+        public static DesiredCapabilities desiredCapabilities;
+
+        static {
+            desiredCapabilities = new DesiredCapabilities(BrowserType.IE, "", Platform.WINDOWS);
+            desiredCapabilities.setCapability(CapabilityType.ForSeleniumServer.ENSURING_CLEAN_SESSION, true);
+        }
+
         @Override
         public String getImplementationClassName() {
             return "org.openqa.selenium.ie.InternetExplorerDriver";
@@ -116,7 +154,7 @@ public class BrowserCapabilitiesList {
 
         @Override
         public Map<String, ?> getRawCapabilities() {
-            return DesiredCapabilities.internetExplorer().asMap();
+            return desiredCapabilities.asMap();
         }
 
         @Override
@@ -132,6 +170,11 @@ public class BrowserCapabilitiesList {
 
     public static class Opera implements BrowserCapabilities {
 
+        /**
+         * DesiredCapabilities for a opera browser.
+         */
+        public static DesiredCapabilities desiredCapabilities = new DesiredCapabilities(BrowserType.OPERA_BLINK, "", Platform.ANY);
+
         @Override
         public String getImplementationClassName() {
             return "org.openqa.selenium.opera.OperaDriver";
@@ -139,7 +182,7 @@ public class BrowserCapabilitiesList {
 
         @Override
         public Map<String, ?> getRawCapabilities() {
-            return DesiredCapabilities.operaBlink().asMap();
+            return desiredCapabilities.asMap();
         }
 
         @Override
@@ -178,6 +221,11 @@ public class BrowserCapabilitiesList {
 
     public static class Safari implements BrowserCapabilities {
 
+        /**
+         * DesiredCapabilities for a opera browser.
+         */
+        public static DesiredCapabilities desiredCapabilities = new DesiredCapabilities(BrowserType.SAFARI, "", Platform.MAC);
+
         @Override
         public String getReadableName() {
             return "safari";
@@ -190,7 +238,7 @@ public class BrowserCapabilitiesList {
 
         @Override
         public Map<String, ?> getRawCapabilities() {
-            return DesiredCapabilities.safari().asMap();
+            return desiredCapabilities.asMap();
         }
 
         @Override
@@ -200,6 +248,11 @@ public class BrowserCapabilitiesList {
     }
 
     public static class PhantomJS implements BrowserCapabilities {
+
+        /**
+         * DesiredCapabilities for a opera browser.
+         */
+        public static DesiredCapabilities desiredCapabilities = new DesiredCapabilities(BrowserType.PHANTOMJS, "", Platform.ANY);
 
         @Override
         public String getReadableName() {
@@ -213,7 +266,7 @@ public class BrowserCapabilitiesList {
 
         @Override
         public Map<String, ?> getRawCapabilities() {
-            return DesiredCapabilities.phantomjs().asMap();
+            return desiredCapabilities.asMap();
         }
 
         @Override
@@ -235,7 +288,7 @@ public class BrowserCapabilitiesList {
 
         @Override
         public Map<String, ?> getRawCapabilities() {
-            return DesiredCapabilities.chrome().asMap();
+            return Chrome.desiredCapabilities.asMap();
         }
 
         @Override
